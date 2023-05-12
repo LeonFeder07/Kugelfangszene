@@ -12,20 +12,20 @@ public class Box {
 
     public void bewegeLinks() {
         if (quader.gibX() > -455) {
-            quader.verschiebe(-2, 0, 0);
+            quader.verschiebe(-3, 0, 0);
         }
     }
     public void bewegeRechts() {
         if (quader.gibX()<455) {
-        quader.verschiebe(2,0,0);
+        quader.verschiebe(3,0,0);
     }}
     public void bewegeUnten() {
         if (quader.gibZ()<455) {
-        quader.verschiebe(0,0,2);
+        quader.verschiebe(0,0,3);
     }}
     public void bewegeOben() {
         if (quader.gibZ() > -455) {
-        quader.verschiebe(0,0,-2);
+        quader.verschiebe(0,0,-3);
     }}
     public double gibX() {
         return  quader.gibX();

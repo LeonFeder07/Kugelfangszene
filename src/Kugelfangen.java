@@ -16,11 +16,11 @@ public class Kugelfangen {
         licht = new GLLicht();
         himmel = new GLHimmel("src/img/Sterne.jpg");
         tastatur = new GLTastatur();
-        kugel = new Kugel [12];
+        kugel = new Kugel [5];
         dieBox= new Box();
         speed= Math.random();
         for(int i = 0; i< kugel.length;i++){
-            kugel[i] = new Kugel(40,spielfeld,dieBox, 0.001);
+            kugel[i] = new Kugel(40,spielfeld,dieBox, 5);
         }
 
 
@@ -34,7 +34,9 @@ public class Kugelfangen {
         while (!tastatur.esc()) {
             Sys.warte(10);
             for (int i = 0; i < kugel.length; i++) {
-                kugel[i].rolle();
+
+                    kugel[i].bewegeHorizontal();
+                    kugel[i].bewegeVertikal();
 
 
             }
