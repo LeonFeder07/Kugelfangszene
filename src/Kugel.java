@@ -6,7 +6,7 @@ public class Kugel{
     
     private double radius;
     private boolean istAktiv;
-    private double a,b,d,f,g, a1,b1,d1;
+    private double a,b,d,f,g, rand1;
     private double speed;
 
     public Kugel(int pRadius,Spielfeld pFeld,Box pBox, double pspeed){
@@ -37,10 +37,11 @@ public class Kugel{
        }
    }
     public void respawn() {
-        kugel.setzePosition(20, 400, 300);
-        kugel.setzeSelbstleuchten(1,1,1);
-        kugel.skaliere(0.5,0.5,0.5);
+        kugel.setzePosition(20, 450, 500);
+        kugel.setzeSelbstleuchten(0,1,0);
+        kugel.skaliere(0.2,0.2,0.2);
         f=0;
+        rand1=150;
     }
 
 
@@ -70,7 +71,7 @@ public class Kugel{
         this.respawn();
          System.out.println("getroffen");
         }
-       if(kugel.gibZ()<= feld.getTiefe()/2&&kugel.gibZ()>= feld.getTiefe()/-2){
+       if(kugel.gibZ()<= feld.getTiefe()/2+rand1*-1&&kugel.gibZ()>= feld.getTiefe()/-2+rand1*1){
             kugel.verschiebe(0, 0, f * speed);
         }else {
             f = -f;
