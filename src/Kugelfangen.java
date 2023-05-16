@@ -7,7 +7,7 @@ public class Kugelfangen {
     private Spielfeld spielfeld;
     private Box dieBox;
     private Kugel [] kugel;
-    private double speed;
+    private double speed,a,f;
 
     public Kugelfangen() {
         kamera = new GLEntwicklerkamera();
@@ -20,8 +20,19 @@ public class Kugelfangen {
         dieBox= new Box();
         speed= Math.random();
         for(int i = 0; i< kugel.length;i++){
-            kugel[i] = new Kugel(40,spielfeld,dieBox, 5);
+            kugel[i] = new Kugel(40,spielfeld,dieBox, 5,i);
         }
+        for(int i = 0; i< kugel.length;i++){
+            kugel[i].uebergebeKugeln(kugel);
+        }
+        if(Math.random()<0.5){
+            a=1;
+            f=1;
+        }else{
+            a=-1;
+            f=-1;
+        }
+
 
 
 
@@ -29,12 +40,24 @@ public class Kugelfangen {
     }
 
     public void fuehreAus() {
-        System.out.println("HI");
 
+        System.out.println("HI");
+        for (int i = 0; i < kugel.length; i++) {
+          kugel[i].startSpawn();
+          kugel[i].setzeSichtbarkeit(false);
+        }
+        dieBox.spawn();
+        for (int i = 0; i < kugel.length; i++) {
+            kugel[i].startSpawn();
+            kugel[i].setzeSichtbarkeit(true);
+        }
         while (!tastatur.esc()) {
             Sys.warte(10);
             for (int i = 0; i < kugel.length; i++) {
-
+               kugel[i].istKugelGetroffen();
+               if(kugel[i].istGetroffen()){
+                   kugel[i].respawn(i*40);
+               }
                     kugel[i].bewegeHorizontal();
                     kugel[i].bewegeVertikal();
 

@@ -8,9 +8,12 @@ public class Kugel{
     private boolean istAktiv;
     private double a,b,d,f,g, rand1;
     private double speed;
+    private int index;
+    Kugel[] kugeln;
 
-    public Kugel(int pRadius,Spielfeld pFeld,Box pBox, double pspeed){
+    public Kugel(int pRadius,Spielfeld pFeld,Box pBox, double pspeed, int pindex){
         speed = pspeed;
+        index= pindex;
 
     if(Math.random()<0.5){
         a=1;
@@ -30,28 +33,54 @@ public class Kugel{
 
         b = (kugel.gibZ() - dieBox.gibZ());
         d = Math.sqrt(g * g + b * b);
-       if (d <= 35) {
+       if (d <= radius + 10) {
            return true;
        } else {
            return false;
        }
    }
-    public void respawn() {
-        kugel.setzePosition(20, 450, 500);
-        kugel.setzeSelbstleuchten(0,1,0);
+   public void istKugelGetroffen() {
+       for (int i = 0; i < kugeln.length; i++) {
+           g = (kugeln[i].gibX() - kugel.gibX());
+
+           b = (kugeln[i].gibZ() - kugel.gibZ());
+           d = Math.sqrt(g * g + b * b);
+           if(i!=index){
+           if (d <= radius * 2-10) {
+               a=a*-1;
+               f=f*-1;
+           }
+           }
+       }
+   }
+    public void respawn(double pPos) {
+        kugel.setzePosition(230-pPos, 480, 500);
+        kugel.setzeSelbstleuchten(1,1,1);
         kugel.skaliere(0.2,0.2,0.2);
         f=0;
+        a=0;
         rand1=150;
+    }
+    public void startSpawn() {
+
+        for (int i = 0; i < kugeln.length; i++) {
+            g = (kugeln[i].gibX() - kugel.gibX());
+
+            b = (kugeln[i].gibZ() - kugel.gibZ());
+            d = Math.sqrt(g * g + b * b);
+            if (d <= radius * 2) {
+                kugeln[i].setzePosition(Math.random()*500*a,40,Math.random()*500*f);
+        }
+
+
+        }
     }
 
 
 
-    public void bewegeHorizontal(){
-      if(this.istGetroffen()){
-         this.respawn();
 
-        System.out.println("getroffen");
-         }
+    public void bewegeHorizontal(){
+
         if(kugel.gibX()<= feld.getBreite()/2 && kugel.gibX()>=feld.getBreite()/-2){
            kugel.verschiebe(a * speed, 0, 0);
 
@@ -68,7 +97,7 @@ public class Kugel{
 
     public void bewegeVertikal(){
         if(this.istGetroffen()){
-        this.respawn();
+        //this.respawn(10);
          System.out.println("getroffen");
         }
        if(kugel.gibZ()<= feld.getTiefe()/2+rand1*-1&&kugel.gibZ()>= feld.getTiefe()/-2+rand1*1){
@@ -88,6 +117,15 @@ public class Kugel{
     }
     public double gibZ() {
         return  kugel.gibZ();
+    }
+    public void uebergebeKugeln(Kugel[] pKugel){
+        kugeln = pKugel;
+    }
+    public void setzePosition(double px,double py, double pz){
+        kugel.setzePosition(px,py,pz);
+    }
+    public void setzeSichtbarkeit(boolean ptrue){
+        kugel.setzeSichtbarkeit(ptrue);
     }
 }
 
