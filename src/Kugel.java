@@ -8,13 +8,13 @@ public class Kugel{
     private boolean istAktiv;
     private double a,b,d,f,g, rand1;
     private double speed;
-    private int index;
+    private int index, punkte;
     Kugel[] kugeln;
 
     public Kugel(int pRadius,Spielfeld pFeld,Box pBox, double pspeed, int pindex){
         speed = pspeed;
         index= pindex;
-
+        punkte = 0;
     if(Math.random()<0.5){
         a=1;
         f=1;
@@ -34,7 +34,9 @@ public class Kugel{
         b = (kugel.gibZ() - dieBox.gibZ());
         d = Math.sqrt(g * g + b * b);
        if (d <= radius + 10) {
+           punkte = punkte +1;
            return true;
+
        } else {
            return false;
        }
@@ -60,6 +62,7 @@ public class Kugel{
         f=0;
         a=0;
         rand1=150;
+       // punkte = punkte +1;
     }
     public void startSpawn() {
 
@@ -96,10 +99,7 @@ public class Kugel{
     }
 
     public void bewegeVertikal(){
-        if(this.istGetroffen()){
-        //this.respawn(10);
-         System.out.println("getroffen");
-        }
+
        if(kugel.gibZ()<= feld.getTiefe()/2+rand1*-1&&kugel.gibZ()>= feld.getTiefe()/-2+rand1*1){
             kugel.verschiebe(0, 0, f * speed);
         }else {
@@ -127,5 +127,6 @@ public class Kugel{
     public void setzeSichtbarkeit(boolean ptrue){
         kugel.setzeSichtbarkeit(ptrue);
     }
+    public int punktezahl(){return punkte;}
 }
 

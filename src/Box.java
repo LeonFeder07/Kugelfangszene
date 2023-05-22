@@ -3,7 +3,7 @@ public class Box {
     private GLQuader quader;
     private Spielfeld feld;
     private double vX, vZ;
-    private double breite, tiefe;
+    private double breite, punkte;
 
     public Box() {
         quader = new GLQuader(0, 275, -200, 80, 150, 80);
@@ -18,20 +18,20 @@ public void spawn(){
 }
     public void bewegeLinks() {
         if (quader.gibX() > -455) {
-            quader.verschiebe(-3, 0, 0);
+            quader.verschiebe(-5, 0, 0);
         }
     }
     public void bewegeRechts() {
         if (quader.gibX()<455) {
-        quader.verschiebe(3,0,0);
+        quader.verschiebe(5,0,0);
     }}
     public void bewegeUnten() {
         if (quader.gibZ()<455) {
-        quader.verschiebe(0,0,3);
+        quader.verschiebe(0,0,5);
     }}
     public void bewegeOben() {
         if (quader.gibZ() > -455) {
-        quader.verschiebe(0,0,-3);
+        quader.verschiebe(0,0,-5);
     }}
     public double gibX() {
         return  quader.gibX();
@@ -39,4 +39,5 @@ public void spawn(){
     public double gibZ() {
         return quader.gibZ();
     }
+
 }

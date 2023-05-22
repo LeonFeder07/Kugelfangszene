@@ -1,6 +1,7 @@
 import GLOOP.*;
 public class Kugelfangen {
     private GLEntwicklerkamera kamera;
+    private GLTafel tafel;
     private GLLicht licht;
     private GLHimmel himmel;
     private GLTastatur tastatur;
@@ -11,7 +12,13 @@ public class Kugelfangen {
 
     public Kugelfangen() {
         kamera = new GLEntwicklerkamera();
+        tafel = new GLTafel(-200,250,0,250,150);
+        tafel.setzeAutodrehung(true);
+        tafel.setzeKamerafixierung(true);
+        tafel.setzeBeleuchtung(true);
+        tafel.setzeSichtbarkeit(false);
         kamera.setzePosition(0, 500, 800);
+
         spielfeld = new Spielfeld(1000, 1000);
         licht = new GLLicht();
         himmel = new GLHimmel("src/img/Sterne.jpg");
@@ -42,21 +49,28 @@ public class Kugelfangen {
     public void fuehreAus() {
 
         System.out.println("HI");
-        for (int i = 0; i < kugel.length; i++) {
-          kugel[i].startSpawn();
-          kugel[i].setzeSichtbarkeit(false);
-        }
+       for(int j = 0; j<5; j++) {
+           for (int i = 0; i < kugel.length; i++) {
+               kugel[i].startSpawn();
+               kugel[i].setzeSichtbarkeit(false);
+           }
+       }
         dieBox.spawn();
+        for(int j = 0; j<5; j++) {
         for (int i = 0; i < kugel.length; i++) {
             kugel[i].startSpawn();
             kugel[i].setzeSichtbarkeit(true);
-        }
+        }}
+        tafel.setzeText("Punktzahl:",30);
+        tafel.setzeSichtbarkeit(true);
         while (!tastatur.esc()) {
             Sys.warte(10);
             for (int i = 0; i < kugel.length; i++) {
                kugel[i].istKugelGetroffen();
+
                if(kugel[i].istGetroffen()){
                    kugel[i].respawn(i*40);
+                   tafel.setzeText("Punktzahl:"+kugel[i].punktezahl()+ " :)",30);
                }
                     kugel[i].bewegeHorizontal();
                     kugel[i].bewegeVertikal();
