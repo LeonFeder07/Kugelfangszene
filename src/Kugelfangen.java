@@ -1,7 +1,7 @@
 import GLOOP.*;
 public class Kugelfangen {
     private GLEntwicklerkamera kamera;
-    private GLTafel tafel;
+    private GLTafel tafel, tafel2;
     private GLLicht licht;
     private GLHimmel himmel;
     private GLTastatur tastatur;
@@ -9,14 +9,24 @@ public class Kugelfangen {
     private Box dieBox;
     private Kugel [] kugel;
     private double speed,a,f;
+    private int punkte= 0;
 
     public Kugelfangen() {
         kamera = new GLEntwicklerkamera();
-        tafel = new GLTafel(-200,250,0,250,150);
+        tafel = new GLTafel(-350,250,0,250,150);
         tafel.setzeAutodrehung(true);
         tafel.setzeKamerafixierung(true);
         tafel.setzeBeleuchtung(true);
+        tafel.setzeSelbstleuchten(1,1,1);
         tafel.setzeSichtbarkeit(false);
+        tafel.setzeTextur("src/img/img_1.png");
+        tafel2 = new GLTafel(-350,250,0,250,150);
+        tafel2.setzeAutodrehung(true);
+        tafel2.setzeKamerafixierung(true);
+        tafel2.setzeBeleuchtung(true);
+        tafel2.setzeSelbstleuchten(1,1,1);
+        tafel2.setzeSichtbarkeit(false);
+        tafel2.setzeTextur("src/img/img_1.png");
         kamera.setzePosition(0, 500, 800);
 
         spielfeld = new Spielfeld(1000, 1000);
@@ -70,7 +80,14 @@ public class Kugelfangen {
 
                if(kugel[i].istGetroffen()){
                    kugel[i].respawn(i*40);
-                   tafel.setzeText("Punktzahl:"+kugel[i].punktezahl()+ " :)",30);
+                   punkte= punkte +1;
+                   tafel.setzeText("Punktzahl:"+punkte+ " :)",30);
+               }
+               if(punkte==5){
+                  kamera.setzeBlickpunkt(0,300,30000);
+                  tafel2.setzeSichtbarkeit(true);
+                  tafel.setzeSichtbarkeit(false);
+                  tafel2.setzeText("Glueckwunsch hast du toll gemacht! Restart? Druecke Space!",30);
                }
                     kugel[i].bewegeHorizontal();
                     kugel[i].bewegeVertikal();
