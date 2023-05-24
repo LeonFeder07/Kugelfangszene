@@ -1,13 +1,18 @@
 import GLOOP.*;
 public class Box {
     private GLQuader quader;
+
     private Spielfeld feld;
     private double vX, vZ;
     private double breite, punkte;
 
     public Box() {
-        quader = new GLQuader(0, 275, -200, 80, 150, 80);
-        quader.setzeFarbe(0, 0, 0);
+        quader = new GLQuader(0, 300, 0, 80, 150, 80);
+        //quader.setzeFarbe(0, 0, 0);
+
+        quader.setzeTextur("src/img/box2.png");
+        quader.setzeMaterial(GLMaterial.GLAS);
+
     }
 public void spawn(){
         for(int i = 0; i< 200; i++) {
@@ -15,6 +20,10 @@ public void spawn(){
             Sys.warte(15);
         }
 
+}
+public void reset(){
+        quader.setzePosition(0,300,0);
+        this.spawn();
 }
     public void bewegeLinks() {
         if (quader.gibX() > -455) {
@@ -30,9 +39,13 @@ public void spawn(){
         quader.verschiebe(0,0,5);
     }}
     public void bewegeOben() {
+
         if (quader.gibZ() > -455) {
         quader.verschiebe(0,0,-5);
     }}
+    public void setzeMaterial(float[][]pM){
+        quader.setzeMaterial(pM);
+    }
     public double gibX() {
         return  quader.gibX();
     }
