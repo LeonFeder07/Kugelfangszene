@@ -202,9 +202,25 @@ public class Kugelfangen {
                 }
                     kugel[i].bewegeHorizontal();
                     kugel[i].bewegeVertikal();
-
-
-            }
+                if(tastatur.enter()&&spielende==true ||spielende2==true){
+                    System.out.println("hi");
+                    spielende=false;
+                    punkte=0;
+                    timerLzeit=0;
+                    timer=0;
+                    dieBox.reset();
+                    kamera.setzeBlickpunkt(0, -25, -30);
+                    tafel2.setzeSichtbarkeit(false);
+                    tafel3.setzeSichtbarkeit(false);
+                    tafel.setzeSichtbarkeit(true);
+                    tafeltime.setzeSichtbarkeit(true);
+                    kugel[i].reset();
+                    kugeltot[i].skaliere(5,5,5);
+                    kugeltot[i].setzeSichtbarkeit(false);
+                    kugeltot[i].startSpawn();
+                    kugeltot[i].setzeSelbstbeleuchtung(0,0,0);
+                }
+                }
         if(tastatur.links()){
             dieBox.bewegeLinks();
         }

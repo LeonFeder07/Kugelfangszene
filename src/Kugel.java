@@ -9,6 +9,7 @@ public class Kugel{
     private double a,b,d,f,g, rand1;
     private double aspeed,speed,speedlos;
     private int index, punkte;
+    private boolean collected = false;
     Kugel[] kugeln;
 
     public Kugel(int pRadius,Spielfeld pFeld,Box pBox, double pspeed, int pindex, double pspeedlos){
