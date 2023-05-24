@@ -176,3 +176,4 @@ public class Kugel{
     public void skaliere(double x, double y, double z){kugel.skaliere(x,y,z);}
 }
 
+//w

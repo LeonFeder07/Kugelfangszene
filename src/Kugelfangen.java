@@ -15,7 +15,7 @@ public class Kugelfangen {
     private int timerLzeitRound=0;
     private boolean spielende=false;
         private boolean    spielende2=false;
-
+//w
     public Kugelfangen() {
         kamera = new GLEntwicklerkamera();
         tafel = new GLTafel(-350,250,0,250,150);
